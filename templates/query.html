@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizBot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .button-container {
+            display: flex;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 5px solid #bd0909;
+            color: #0056b3;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(173, 19, 19, 0.1);
+        }
+        label, input, button {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: #bd0909;
+            border-color: #bd0909;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            background-color: #eee;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            min-height: 150px; /* Ensure it's visible even when empty */
+            word-wrap: break-word; /* Break long words */
+        }
+        textarea {
+            width: 100%; /* Makes it take full width of its container */
+            min-height: 100px; /* Sets a minimum height */
+            resize: vertical; /* Allows users to resize it vertically */
+            padding: 8px;
+            box-sizing: border-box; /* Includes padding in the element's total width and height */
+            font-family: sans-serif; /* A common, readable font */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: lightskyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center; background-color: darkgoldenrod; font-style: normal; color: indigo;">BizData AI,BizScan,Query Mate,DataPulse</h2>
+        Hi Welcome,
+        <form id="myForm">
+            <!-- <h3>Input:</h3>
+             <input type="text" id="input1" name="input1" placeholder="Enter your free text query here"> -->
+            <textarea id="input1" name="input1" rows="5" cols="50" placeholder="Tell us what you're looking for..." required></textarea>
+
+            <div class="button-container">
+                <button type="submit" style="border:brown">Submit</button>
+                <button onclick="clearInputField()">Reset</button>
+            </div>
+
+            <!--<button type="submit">Submit</button>
+            <button onclick="clearInputField()">
+                 Click here to clear
+            </button> -->
+            <script>
+                 function clearInputField() {
+                     document.getElementById('myForm').reset();
+            }
+    </script>
+            
+        </form>
+
+        <h3 style="text-align: center; font-style: normal; color: indigo;">Results</h3>
+        <div id="output">
+            </div>
+    </div>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const input1 = document.getElementById('input1').value;
+            
+            // Prepare data to send to Python
+            const data = {
+                input1: input1
+            };
+
+            try {
+                // Send data to your Python backend
+                // Replace '/process_data' with the actual endpoint of your Python application
+                const response = await fetch('/process_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json(); // Assuming your Python returns JSON
+
+                // Display the output
+                document.getElementById('output').textContent = result.output; // Adjust 'result.output' based on your Python's JSON key
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('output').textContent = 'Unexpected error occurred, try again or rephrase your prompt';
+            }
+        });
+    </script>
+    
+</body>
+</html>
