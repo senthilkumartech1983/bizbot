@@ -1,0 +1,8 @@
+langchain
+Flask
+streamlit
+langchain_google_genai
+sqlalchemy
+langchain_experimental
+langchain_community
+langgraph
