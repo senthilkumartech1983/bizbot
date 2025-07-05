@@ -6,4 +6,5 @@ sqlalchemy
 langchain_experimental
 langchain_community
 langgraph
-PyMySQL
+mysql-connector-python
+gunicorn
