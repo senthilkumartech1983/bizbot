@@ -119,7 +119,7 @@ class UserManager:
                 cursor.execute("SELECT pass FROM Users WHERE username = %s", (username,))
                 user_record = cursor.fetchone()
                 print(f"DB result for user '{username}': {user_record}")
-                if user_record and user_record['password_hash'] == password:
+                if user_record and user_record['pass'] == password:
                    return True
                 else:
                    return False
