@@ -6,3 +6,4 @@ sqlalchemy
 langchain_experimental
 langchain_community
 langgraph
+mysql
