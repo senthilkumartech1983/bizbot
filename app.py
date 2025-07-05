@@ -116,7 +116,7 @@ class UserManager:
         if conn:
             cursor = conn.cursor(dictionary=True) # Get results as dictionaries
             try:
-                cursor.execute("SELECT password_hash FROM users WHERE username = %s", (username,))
+                cursor.execute("SELECT pass FROM Users WHERE username = %s", (username,))
                 user_record = cursor.fetchone()
                 print(f"DB result for user '{username}': {user_record}")
                 if user_record and user_record['password_hash'] == password:
@@ -138,10 +138,10 @@ app.secret_key = os.urandom(24) # Secret key for session management
 # IMPORTANT: Replace these with your actual MySQL database credentials.
 # For production, these should be stored securely (e.g., environment variables).
 DB_CONFIG = {
-    'host': 'localhost', # Or your MySQL server IP/hostname
-    'user': 'root', # Your MySQL username
-    'password': '365536', # Your MySQL password
-    'database': 'genainosql' # The name of your database
+    'host': 'sql12.freesqldatabase.com', # Or your MySQL server IP/hostname
+    'user': 'sql12787708', # Your MySQL username
+    'password': 'KCcxsNAL1D', # Your MySQL password
+    'database': 'sql12787708' # The name of your database
 }
 
 # Create an instance of UserManager
